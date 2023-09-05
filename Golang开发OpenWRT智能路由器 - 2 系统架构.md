@@ -1,10 +1,10 @@
 ---
-title: Golang开发OpenWRT智能路由器管理系统 - 2 系统架构
+title: Golang开发OpenWRT智能路由器 - 2 系统架构
 created: '2023-06-15T15:13:35.938Z'
-modified: '2023-06-17T05:14:42.172Z'
+modified: '2023-09-05T07:37:33.056Z'
 ---
 
-# Golang开发OpenWRT智能路由器管理系统 - 2 系统架构
+# Golang开发OpenWRT智能路由器 - 2 系统架构
 
 golang开发一个类似luci web ui的路由器管理系统
 
