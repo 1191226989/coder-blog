@@ -1,10 +1,10 @@
 ---
-title: Golang开发OpenWRT智能路由器管理系统 - 1 本地开发环境搭建
+title: Golang开发OpenWRT智能路由器 - 1 本地开发环境搭建
 created: '2023-06-15T14:36:48.083Z'
-modified: '2023-06-16T11:32:48.348Z'
+modified: '2023-09-05T07:36:49.403Z'
 ---
 
-# Golang开发OpenWRT智能路由器管理系统 - 1 本地开发环境搭建
+# Golang开发OpenWRT智能路由器 - 1 本地开发环境搭建
 
 反复几次试过https://openwrt.org/文档提供的docker搭建测试环境方法，存在缺少部分命令和ubusd无法启动的问题
 
@@ -81,7 +81,7 @@ reboot now
 
 按照文档提供的说明重新装了一次就成功了。文档强调要开启两个虚拟网卡，这个是解决问题的关键，也是和其他普通linux虚拟机不同的地方。如果以前只开启了一个虚拟网卡，就先关闭虚拟机然后在虚拟机 设置》网络设置 选项里将网卡1设置为 `仅主机(Host-only)网络`，将网卡2设置为`(网络地址转换)NAT`，然后重新启动虚拟机就可以正常连接外网了。
 
-如果遇到宿主机无法ping虚拟机的情况，可以将网卡1改为`桥接网卡(Bridged Adapter)`，或者再增加一个网卡3并设置为`桥接网卡(Bridged Adapter)`，并将openwrt虚拟机`/etc/config/network`配置文件的`lan`配置项的ip改为和宿主机同一个网段的ip，就可以解决问题了。
+如果遇到宿主机无法ping虚拟机的情况，可以将网卡1改为`桥接网卡(Bridged Adapter)`，或者再增加一个网卡3并设置为`桥接网卡(Bridged Adapter)`，并将openwrt虚拟机`/etc/config/network`配置文件的`lan`配置项的ip改为和宿主机同一个网段的ip，gateway改为主路由的ip，就可以解决问题了。
 
 
 
