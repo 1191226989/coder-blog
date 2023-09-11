@@ -1,10 +1,10 @@
 ---
-title: Golang开发OpenWRT智能路由器 - 2 系统架构
+title: Golang开发OpenWRT智能路由器-2系统架构
 created: '2023-06-15T15:13:35.938Z'
-modified: '2023-09-05T07:37:33.056Z'
+modified: '2023-09-11T09:39:34.807Z'
 ---
 
-# Golang开发OpenWRT智能路由器 - 2 系统架构
+# Golang开发OpenWRT智能路由器-2系统架构
 
 golang开发一个类似luci web ui的路由器管理系统
 
@@ -37,7 +37,7 @@ golang开发一个类似luci web ui的路由器管理系统
 - 有些`Package`服务`ubus`提供了可以命令行直接调用的方法文档（rpcd/netifd/procd）
 - 有些`Package`服务`ubus`没有提供可以命令行直接调用的方法文档（odhcpd/wpad/hostapd/mdnsd），但是`rpcd`服务提供了的`uci`修改对应`package`配置的方法。[https://openwrt.org/docs/guide-developer/ubus/uci]
 - 使用`ubus`提供的方法，开发人员只需要调用相关命令，传参接收返回结果
-- golang可以通过`os.exec`包调用`ubus`提供的命令行（shell）
+- golang可以通过`os.exec`包以shell方式调用`ubus`提供的命令行
 - 个别服务模块的配置不支持`uci`修改。
 [https://openwrt.org/docs/guide-user/base-system/notuci.config]
 
