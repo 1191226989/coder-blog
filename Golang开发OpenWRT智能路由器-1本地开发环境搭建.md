@@ -1,10 +1,10 @@
 ---
-title: Golang开发OpenWRT智能路由器 - 1 本地开发环境搭建
+title: Golang开发OpenWRT智能路由器-1本地开发环境搭建
 created: '2023-06-15T14:36:48.083Z'
-modified: '2023-09-05T07:36:49.403Z'
+modified: '2023-09-11T09:36:42.664Z'
 ---
 
-# Golang开发OpenWRT智能路由器 - 1 本地开发环境搭建
+# Golang开发OpenWRT智能路由器-1本地开发环境搭建
 
 反复几次试过https://openwrt.org/文档提供的docker搭建测试环境方法，存在缺少部分命令和ubusd无法启动的问题
 
@@ -22,7 +22,7 @@ openwrt-22.03.5-x86-64-generic-ext4-combined.img
 vboxmanage.exe convertfromraw  --format VDI openwrt-22.03.5-x86-64-generic-ext4-combined.img  openwrt.vdi
 ```
 
-4. 调整 VDI 文件的大小，增加虚拟磁盘容量的大小。
+4. 默认磁盘容量较小，调整 VDI 文件的大小，增加虚拟磁盘容量的大小到512M
 ```shell
 vboxmanage.exe modifyhd --resize 512 openwrt.vdi
 ```
