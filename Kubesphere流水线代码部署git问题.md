@@ -1,10 +1,10 @@
 ---
-title: kubesphere流水线代码部署git问题
+title: Kubesphere流水线代码部署git问题
 created: '2023-09-25T04:33:07.892Z'
-modified: '2023-09-25T04:49:42.384Z'
+modified: '2023-09-25T06:02:54.280Z'
 ---
 
-# kubesphere流水线代码部署git问题
+# Kubesphere流水线代码部署git问题
 
 https://www.kubesphere.io/zh/
 Linux上以 All-in-One 模式安装 KubeSphere 测试使用
