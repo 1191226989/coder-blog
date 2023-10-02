@@ -1,7 +1,7 @@
 ---
 title: gitbub问题合集
 created: '2023-06-18T05:13:26.553Z'
-modified: '2023-09-25T06:04:00.084Z'
+modified: '2023-10-02T08:44:11.857Z'
 ---
 
 # gitbub问题合集
@@ -39,3 +39,9 @@ git submodule init xxx
 git submotule udpate xxx
 ```
 
+#### git 配置代理
+```sh
+git config --global http.proxy "127.0.0.1:1080"
+# 取消代理
+git config --global --unset http.proxy
+```
