@@ -1,7 +1,7 @@
 ---
 title: docker-prometheus
 created: '2022-03-30T01:50:37.552Z'
-modified: '2023-06-18T03:00:25.612Z'
+modified: '2023-12-01T03:15:23.663Z'
 ---
 
 # docker-prometheus
@@ -180,10 +180,9 @@ docker run \
 grafana/grafana
 ```
 
-```
 https://grafana.com/grafana/dashboards/
 
-可以import官方的dashboard模板，需要修改 设置》Variables 》instance
-label_values(node_exporter_build_info{job="node"}, instance) 改为prometheus对应的job名称
-```
+可以引用已有dashboard模板，需要修改 设置 > Variables > instance
+`label_values(node_exporter_build_info{job="node"}, instance)` 改为prometheus对应的job名称
+
 
