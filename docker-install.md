@@ -1,7 +1,7 @@
 ---
 title: docker-install
 created: '2022-03-30T01:50:37.552Z'
-modified: '2023-06-18T03:00:06.369Z'
+modified: '2023-12-01T03:08:01.226Z'
 ---
 
 # docker-install
@@ -55,17 +55,18 @@ docker run -d --name redis -p 6379:6379 redis:latest --requirepass 123456
 docker exec -it redis /bin/bash
  
 docker run -p 6379:6379 --name redis -v /usr/local/docker/redis.conf:/etc/redis/redis.conf -v /usr/local/docker/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
+```
+- 参数解释
+`-p 6379:6379` 端口映射 [主机端口]:[容器端口]
+`--name myredis` 指定该容器名称
+`-v` 挂载目录 [主机目录]:[容器目录]
+`-d redis` 表示后台启动redis
+`redis-server /etc/redis/redis.conf` 以配置文件启动redis，加载容器内的conf文件，最终找到的是挂载的目录/usr/local/docker/redis.conf
+`appendonly yes` 开启redis 持久化
+`--restart=always` 在容器退出时总是重启容器,主要应用在生产环境
+`--privileged=true` 特权模式,授权容器与主机相同的权限
  
--p 6379:6379 端口映射：前表示主机部分，：后表示容器部分。
---name myredis 指定该容器名称，查看和进行操做都比较方便。
--v 挂载目录，规则与端口映射相同。
--d redis 表示后台启动redis
-redis-server /etc/redis/redis.conf 以配置文件启动redis，加载容器内的conf文件，最终找到的是挂载的目录/usr/local/docker/redis.conf
-appendonly yes 开启redis 持久化
---restart=always 在容器退出时总是重启容器,主要应用在生产环境
---privileged=true 在CentOS7中的安全模块selinux把权限禁掉了，参数给容器加特权，不加上传镜像会报权限错误
- 
- 
+```sh
 docker pull bitnami/etcd:latest
 docker network create app-tier --driver bridge
 docker run -d --name etcd-server \
