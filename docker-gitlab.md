@@ -123,7 +123,7 @@ stages: # 分段
 
 job_lint:
   tags:
-    - golang-app
+    - golang-app # 只有具有 golang-app 标签的 runner 才能运行该作业
   stage: lint
   image: golangci/golangci-lint:v1.51.2
   script:
@@ -188,6 +188,9 @@ linters-settings:
     # Default: 1
     tab-width: 1
 ```
+- tags
+使用 tags 选项可以从项目可用的所有 runner 列表中选择一个tag-list为指定值的 runner
+
 - before_script
 声明 runner 在每个 job 中都要执行该操作列出的所有命令
 
