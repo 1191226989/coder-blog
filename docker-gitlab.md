@@ -51,6 +51,19 @@ sudo docker run --detach \
   --volume /home/docker/gitlab/data:/var/opt/gitlab \
   gitlab/gitlab-ce:latest
 ```
+- 额外配置
+
+　默认的git地址是容器本机的IP地址，修改配置文件`/home/docker/gitlab/config/gitlab.rb`
+```
+external_url 'http://git.xxx.com'
+```
+
+重启gitlab
+```shell
+gitlab-ctl reconfigure
+gitlab-ctl  restart
+```
+
 #### 2.项目创建
 创建一个开发项目，打开 Settings->Genneral->Pipeliness 设置
 
