@@ -111,6 +111,34 @@ docker run --rm -v /home/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-r
   --docker-volumes /var/run/docker.sock:/var/run/docker.sock \
   --docker-volumes /usr/bin/docker:/usr/bin/docker
 ```
+```toml
+concurrent = 1
+check_interval = 0
+ 
+[session_server]
+  session_timeout = 1800
+ 
+[[runners]]
+  name = "d25fbd515fd7"
+  url = "http://192.168.1.106/"
+  token = "osaKgBGS7yausc5t4KTg"
+  executor = "docker"
+  [runners.custom_build_dir]
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]
+    [runners.cache.azure]
+  [runners.docker]
+    tls_verify = false
+    image = "docker:19.03.12"
+    privileged = true
+    disable_entrypoint_overwrite = false
+    oom_kill_disable = false
+    disable_cache = false
+    volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache","/certs/client"]
+    shm_size = 0
+　　 pull_policy="if-not-present"
+```
 
 #### 4.运行流水线
 在开发项目根目录里面创建一个`.gitlab-ci.yml`
@@ -256,3 +284,110 @@ COPY --from=builder /app/etc /app/etc
 
 CMD ["./lol", "-f", "etc/lol-api.yaml"]
 ```
+
+#### 简单示例.gitlab-ci.yml
+打包运行后端go语言的项目
+```yaml
+image: golang:1.18
+ 
+stages: # 分段
+  - build
+  - deploy
+ 
+cache: # 缓存
+  paths:
+    - dist
+ 
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+   
+ 
+job_build:
+  tags:
+    - go
+  stage: build
+  script:
+    - go env -w GOPROXY=https://goproxy.cn,direct
+    - go build -o dist/main
+    - ls -l
+    - pwd
+ 
+job_deploy:
+  tags:
+    - go
+  image: docker:19.03.12
+  only:
+    - develop
+  services:
+    - docker:19.03.12-dind
+  stage: deploy
+  script:
+    - docker build -t goproject:v1 .
+    - if [ $(docker ps -aq --filter name=goapp) ]; then docker rm -f goapp;fi   #如果存在运行的容器则删除重建
+    - docker run -e TZ="Asia/Shanghai" -d -p 9800:80 --name goapp goproject:v1
+```
+
+Dockefile文件
+```Dockerfile
+FROM golang:1.18
+EXPOSE 8080 80  
+WORKDIR /go/   
+#COPY . /go/    
+COPY dist/main main  
+CMD ./main  
+```
+
+打包运行前端node项目
+```yaml
+image: node:16.14
+ 
+stages: # 分段
+  - install
+  - build
+  - deploy
+ 
+cache: # 缓存
+  paths:
+    - node_modules
+    - dist
+ 
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+   
+ 
+job_install:
+  tags:
+    - web
+  stage: install
+  script:
+    - npm install vue --save
+    - npm install vue-router
+    - npm install
+ 
+job_build:
+  tags:
+    - web
+  stage: build
+  script:
+    - npm install vue --save
+    - npm install vue-router
+    - npm run build
+ 
+job_deploy:
+  tags:
+    - web
+  image: docker:19.03.12
+  only:
+    - develop
+  services:
+    - docker:19.03.12-dind
+  stage: deploy
+  environment:
+    name: web_test
+    url: http://192.168.1.106:8080/
+  script:
+    - docker build -t appimages:v1 .
+    - if [ $(docker ps -aq --filter name=app-container) ]; then docker rm -f app-container;fi
+    - docker run -d -p 8880:80 -p 8080:8080 --name app-container appimages:v1
+```
+
