@@ -1,10 +1,10 @@
 ---
-title: docker-gitlab
+title: Golang使用GitlabCICD部署项目
 created: '2023-08-27T02:24:10.613Z'
 modified: '2023-12-01T02:51:26.369Z'
 ---
 
-# docker-gitlab
+# Golang使用GitlabCICD部署项目
 
 #### 参考文档
 - https://docs.gitlab.com/
